@@ -16,7 +16,7 @@ class MainTrainingController extends AbstractController
      */
     public function index(TestService $service)
     {
-        $doll = 13200;
+        $doll = 2400;
         $tmp = $service->convert($doll);
 
         return $this->render('main_training/index.html.twig', [
