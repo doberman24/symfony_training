@@ -27,6 +27,11 @@ class Page
      */
     private $content;
 
+        /**
+     * @ORM\Column(type="boolean")
+     */
+    private $publish;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -54,5 +59,15 @@ class Page
         $this->content = $content;
 
         return $this;
+    }
+
+    public function getPublish(): ?bool
+    {
+        return $this->publish;
+    }
+
+    public function setPublish($publish)
+    {
+        $this->publish = $publish;
     }
 }
