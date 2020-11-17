@@ -51,4 +51,79 @@ class MainTrainingController extends AbstractController
               </body>
             </html>');
     }
+
+        /**
+     * @Route("/show-page/{publish}", name="showPage")
+     */
+    public function showPage(Page $page)
+    {
+         return $this->render('page.html.twig', [
+            'page'=>$page
+        ]);
+    }
+
+        /**
+     * @Route("/edit-page/{id}", name="editPage")
+     */
+    public function editPage(Page $page, EntityManagerInterface $em)
+    {
+
+      $page->setTitle('Обновленные заголовок');
+      $page->setPublish(false);
+
+      $em->flush();
+
+      return new Response('
+      <html lang="en">
+        <head>
+          <meta charset="UTF-8">
+          <title>Обновление объекта в базе данных</title>
+        </head>
+        <body>
+          <h1>Объект обновлен в базе данных</h1>
+          <img src="/images/under-construction.gif" />
+        </body>
+      </html>');
+    }
+
+           /**
+     * @Route("/del-page/{id}", name="delPage")
+     */
+    public function delPage(Page $page, EntityManagerInterface $em)
+    {
+
+      $em->remove($page);
+      $em->flush();
+
+      return new Response('
+      <html lang="en">
+        <head>
+          <meta charset="UTF-8">
+          <title>Удаление объекта из базы данных</title>
+        </head>
+        <body>
+          <h1>Объект удален из базы данных</h1>
+          <img src="/images/under-construction.gif" />
+        </body>
+      </html>');
+    }
+
+               /**
+     * @Route("/index-page", name="indexPage")
+     */
+    public function indexPage(EntityManagerInterface $em)
+    {
+
+      $page = $em->getRepository(Page::class)->findBy([],['id' => 'DESC']);
+
+      dd($page);
+
+/*      $em->remove($page);
+      $em->flush();
+
+      return new Response('
+*/
+    }
 }
+
+
